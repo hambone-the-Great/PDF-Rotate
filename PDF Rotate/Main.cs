@@ -17,6 +17,9 @@ namespace PDF_Rotate
         public Main()
         {
             InitializeComponent();
+            webBrowser1.AllowWebBrowserDrop = false;
+            
+            
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -34,14 +37,7 @@ namespace PDF_Rotate
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
             //do something with files: 
-            FileInfo file = new FileInfo(files[0]);
-
-            if (file.Extension == ".htm" || file.Extension == ".pdf")
-            {
-                Uri url = new Uri(file.FullName);
-                webBrowser1.Url = url;
-            }
-
+            PreviewFile(files[0]);          
         }
 
         private void NavigateTo(string path)
@@ -59,14 +55,44 @@ namespace PDF_Rotate
 
             if (result == DialogResult.OK)
             {
-                FileInfo file = new FileInfo(diag.FileName);
-
-                if (file.Extension == ".htm" || file.Extension == ".pdf")
-                {
-                    Uri url = new Uri(file.FullName);
-                    webBrowser1.Url = url; 
-                }                
+                PreviewFile(diag.FileName);
             }
+
+        }
+
+        private void BtnRotateRight_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnRotateLeft_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void PreviewFile(string path)
+        {
+            FileInfo file = new FileInfo(path);
+
+            if (file.Extension == ".htm" || file.Extension == ".pdf")
+            {
+                string tempFile = Path.Combine(Path.GetTempPath(), file.Name);
+                File.Copy(file.FullName, tempFile);
+                Application.DoEvents();
+                Uri url = new Uri(tempFile);
+                webBrowser1.Url = url; 
+            }
+        }
+
+        private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            
+            //Can't do it this way because it would stop navigating as soon as PreviewFile is called. I think....
+
+            //webBrowser1.Stop();
+            //string url = webBrowser1.Url.ToString();
+            //PreviewFile(url);
 
         }
     }
