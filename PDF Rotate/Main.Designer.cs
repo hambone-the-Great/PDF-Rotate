@@ -30,6 +30,8 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -47,12 +49,14 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button3);
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(1179, 816);
+            this.splitContainer1.Size = new System.Drawing.Size(787, 611);
             this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
@@ -64,8 +68,32 @@
             this.webBrowser1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 26);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(981, 816);
+            this.webBrowser1.Size = new System.Drawing.Size(589, 611);
             this.webBrowser1.TabIndex = 0;
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImage = global::PDF_Rotate.Properties.Resources.left;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(28, 375);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(140, 120);
+            this.button3.TabIndex = 2;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = global::PDF_Rotate.Properties.Resources.right;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Location = new System.Drawing.Point(28, 180);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(140, 120);
+            this.button2.TabIndex = 1;
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -85,7 +113,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1179, 816);
+            this.ClientSize = new System.Drawing.Size(787, 611);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -107,6 +135,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 

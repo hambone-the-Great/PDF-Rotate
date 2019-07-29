@@ -81,6 +81,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="html\images\left.png" />
+    <None Include="html\images\right.png" />
     <None Include="html\images\folder-64.png" />
     <Content Include="html\images\folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
