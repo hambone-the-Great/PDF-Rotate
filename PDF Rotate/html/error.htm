@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1>Error!</h1>
+    <p><span id="msg"></span></p>
+
+    <script>
+        window.onload = function () {
+
+            var query = window.location.search; 
+
+            if (query.includes("msg")) {
+
+                var msg = query.split("msg=")[1]; 
+                var msgEl = document.getElementById("msg");
+                msgEl.innerHTML = msg; 
+            }
+            
+        };
+    </script>
+</body>
+</html>

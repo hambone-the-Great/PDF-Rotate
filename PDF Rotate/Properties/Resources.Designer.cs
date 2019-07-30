@@ -73,6 +73,16 @@ namespace PDF_Rotate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folder_100 {
+            get {
+                object obj = ResourceManager.GetObject("folder-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folder_64 {
             get {
                 object obj = ResourceManager.GetObject("folder-64", resourceCulture);
@@ -96,6 +106,16 @@ namespace PDF_Rotate.Properties {
         internal static System.Drawing.Bitmap right {
             get {
                 object obj = ResourceManager.GetObject("right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_100 {
+            get {
+                object obj = ResourceManager.GetObject("save-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
