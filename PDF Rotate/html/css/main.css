@@ -1,0 +1,9 @@
+﻿/* Main.css */
+body {
+    font-family:'Century Gothic', Calibri, Arial, sans-serif;    
+}
+
+#container {
+    width: 80%;
+    margin: 0 auto;
+}

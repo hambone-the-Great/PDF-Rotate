@@ -89,13 +89,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="html\css\main.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="html\error.htm" />
     <Content Include="html\goodbye.htm" />
-    <None Include="html\images\folder-100.png" />
-    <None Include="html\images\save-100.png" />
-    <None Include="html\images\left.png" />
-    <None Include="html\images\right.png" />
-    <None Include="html\images\folder-64.png" />
+    <None Include="html\images\folder-100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="html\images\save-100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="html\images\left.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="html\images\right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="html\images\folder-64.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="html\images\folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -110,7 +123,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="html\css\" />
     <Folder Include="html\js\" />
   </ItemGroup>
   <ItemGroup>

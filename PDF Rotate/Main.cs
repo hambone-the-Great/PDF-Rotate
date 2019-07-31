@@ -97,7 +97,7 @@ namespace PDF_Rotate
             {
                 if (droppedFile.Extension == ".pdf")
                 {                    
-                    TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(8) + droppedFile.Extension);
+                    TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(16) + droppedFile.Extension);
                     File.Copy(droppedFile.FullName, TempFile);
                     Application.DoEvents();                     
                 }
@@ -108,24 +108,31 @@ namespace PDF_Rotate
 
         private void RotatePDF(int degrees)
         {
-            var info = new FileInfo(TempFile);
-
+                      
             if (TempFile != string.Empty)
             {
-                var doc = PdfReader.Open(TempFile);
+                var info = new FileInfo(HttpUtility.UrlDecode(TempFile));
 
-                foreach (PdfPage page in doc.Pages)
+                if (info.Extension == ".pdf")
                 {
-                    page.Rotate = (page.Rotate + degrees) % 360;
+
+                    var doc = PdfReader.Open(TempFile);
+
+                    foreach (PdfPage page in doc.Pages)
+                    {
+                        page.Rotate = (page.Rotate + degrees) % 360;
+                    }
+
+                    var newName = Path.Combine(TempDir, "rotated_" + info.Name);
+
+                    doc.Save(newName);
+
+                    Application.DoEvents(); //give time to save. 
+
+                    var url = new Uri(newName);
+
+                    webBrowser1.Url = url;
                 }
-
-                var newName = Path.Combine(TempDir, "rotated_" + info.Name);
-
-                doc.Save(newName);
-
-                var url = new Uri(newName);
-
-                webBrowser1.Url = url;
             }
         }
 
