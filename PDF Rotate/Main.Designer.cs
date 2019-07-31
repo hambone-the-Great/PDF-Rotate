@@ -74,6 +74,7 @@
             this.btnSave.Size = new System.Drawing.Size(140, 120);
             this.btnSave.TabIndex = 3;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnRotateLeft
             // 
@@ -137,7 +138,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
             this.Text = "PDF Rotate";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

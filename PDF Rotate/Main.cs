@@ -22,7 +22,6 @@ namespace PDF_Rotate
 
         string TempDir = string.Empty;
         string TempFile = string.Empty;
-        string CurrentFile = string.Empty; 
 
         public Main()
         {
@@ -35,6 +34,7 @@ namespace PDF_Rotate
             NavigateToLocalResource(@"html\welcome.htm");
             TempDir = Path.Combine(Path.GetTempPath(), "PDF-Rotate");
             if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+            CleanTempDir();
         }
 
         private void NavigateToLocalResource(string path)
@@ -98,32 +98,13 @@ namespace PDF_Rotate
                 if (droppedFile.Extension == ".pdf")
                 {                    
                     TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(8) + droppedFile.Extension);
-                    File.Copy(droppedFile.FullName, TempFile, true);
-                    Application.DoEvents();
-                    this.Text = "PDF Rotate - " + droppedFile.Name;
-                    CurrentFile = TempFile; 
+                    File.Copy(droppedFile.FullName, TempFile);
+                    Application.DoEvents();                     
                 }
             }
             
         }
 
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            var files = Directory.GetFiles(TempDir);
-
-            try
-            {
-
-                foreach (string file in files)
-                {
-                    if (File.Exists(file)) File.Delete(file);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
 
         private void RotatePDF(int degrees)
         {
@@ -148,6 +129,28 @@ namespace PDF_Rotate
             }
         }
 
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            webBrowser1.ShowSaveAsDialog();
+
+        }
+
+        private void CleanTempDir()
+        {
+            var files = Directory.GetFiles(TempDir);
+
+            try
+            {
+                foreach (string file in files)
+                {
+                    if (File.Exists(file)) File.Delete(file);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
     }
 }

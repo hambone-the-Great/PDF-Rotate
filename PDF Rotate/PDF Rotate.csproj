@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="html\error.htm" />
+    <Content Include="html\goodbye.htm" />
     <None Include="html\images\folder-100.png" />
     <None Include="html\images\save-100.png" />
     <None Include="html\images\left.png" />
