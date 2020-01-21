@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDF Rotate", "PDF Rotate\PDF Rotate.csproj", "{A8DCEF16-7815-464E-990E-8445A4579FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchuffSharp", "..\SchuffSharp\SchuffSharp\SchuffSharp\SchuffSharp.csproj", "{5761947F-0E0A-49A4-B0A9-2C6C06EFAE0D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchuffSharp", "..\SchuffSharp\SchuffSharp\SchuffSharp.csproj", "{5761947F-0E0A-49A4-B0A9-2C6C06EFAE0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

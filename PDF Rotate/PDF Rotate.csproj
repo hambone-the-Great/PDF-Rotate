@@ -189,12 +189,6 @@
     <Folder Include="html\js\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SchuffSharp\SchuffSharp\SchuffSharp\SchuffSharp.csproj">
-      <Project>{5761947f-0e0a-49a4-b0a9-2c6c06efae0d}</Project>
-      <Name>SchuffSharp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
