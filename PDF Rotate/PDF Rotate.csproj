@@ -63,10 +63,11 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D01046BF2D0442BCD477A87229CE4E6F12DDD992</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>1091B3A2C20C953A02E976D0531C7F301FAF526F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>PDF Rotate_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>true</SignManifests>
@@ -199,6 +200,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SchuffSharp\SchuffSharp\SchuffSharp.csproj">
+      <Project>{5761947f-0e0a-49a4-b0a9-2c6c06efae0d}</Project>
+      <Name>SchuffSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

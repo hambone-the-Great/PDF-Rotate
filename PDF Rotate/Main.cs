@@ -13,35 +13,57 @@ using PdfSharp;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System.Web;
-using SchuffSharp;
+using SchuffSharp.Files;
+using SchuffSharp.StringExtender;
 
 namespace PDF_Rotate
 {
     public partial class Main : Form
     {
+        private static readonly string InstallDir = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string AppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Rotate");
+        private static readonly string TempDir = Path.Combine(AppDataDir, @"Temp");
+        private static readonly string ResourceDir = Path.Combine(AppDataDir, @"Resources");
+        private static readonly string HtmlDir = Path.Combine(ResourceDir, @"html"); 
+        private string TempFile { get; set; }
 
-        string TempDir = string.Empty;
-        string TempFile = string.Empty;
-
-        public Main()
+        public Main(string filePath = null)
         {
-            InitializeComponent();                                   
+            InitializeComponent();
+
+            if (!Directory.Exists(AppDataDir)) Directory.CreateDirectory(AppDataDir);
+            if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+            if (!Directory.Exists(ResourceDir)) Directory.CreateDirectory(ResourceDir);
+            if (!Directory.Exists(HtmlDir)) Directory.CreateDirectory(HtmlDir);
+
+            CopyResourcesToAppData(); 
+
+            if (filePath != null)
+            {
+
+            }
+
+        }
+
+        private void CopyResourcesToAppData()
+        {
+            
+            string HtmlInstallDir = Path.Combine(InstallDir, @"html");
+            FileExt.CopyDirectory(HtmlInstallDir, HtmlDir, true);
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
             webBrowser1.BringToFront(); 
-            NavigateToLocalResource(@"html\welcome.htm");
-            TempDir = Path.Combine(Path.GetTempPath(), "PDF-Rotate");
-            if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
-            CleanTempDir();
+            NavigateToLocalResource(@"welcome.htm");
         }
 
         private void NavigateToLocalResource(string path)
         {
-            string rawUrl = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
-            Uri url = new Uri(rawUrl);
-            webBrowser1.Url = url;
+            string rawUrl = Path.Combine(HtmlDir, path);
+            //Uri url = new Uri(rawUrl);
+            //webBrowser1.Url = url;
+            webBrowser1.Navigate(rawUrl);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -97,7 +119,7 @@ namespace PDF_Rotate
             {
                 if (droppedFile.Extension == ".pdf")
                 {                    
-                    TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(16) + droppedFile.Extension);
+                    TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(4) + droppedFile.Extension);
                     File.Copy(droppedFile.FullName, TempFile);
                     Application.DoEvents();                     
                 }
@@ -129,22 +151,30 @@ namespace PDF_Rotate
 
                     Application.DoEvents(); //give time to save. 
 
-                    var url = new Uri(newName);
+                    webBrowser1.Navigate(newName); 
 
-                    webBrowser1.Url = url;
+                    //var url = new Uri(newName);
+
+                    //webBrowser1.Url = url;
                 }
             }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            webBrowser1.ShowSaveAsDialog();
+            //webBrowser1.ShowSaveAsDialog();
+
+
+
+            MessageBox.Show("File Saved Successfully.");
+
+            NavigateToLocalResource(@"Welcome.htm");
 
         }
 
         private void CleanTempDir()
         {
-            var files = Directory.GetFiles(TempDir);
+            var files = Directory.GetFiles(TempDir, "*.*", SearchOption.AllDirectories);
 
             try
             {
@@ -159,5 +189,9 @@ namespace PDF_Rotate
             }
         }
 
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CleanTempDir();
+        }
     }
 }
