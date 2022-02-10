@@ -18,7 +18,7 @@ using SchuffSharp.StringExtender;
 
 namespace PDF_Rotate
 {
-    public partial class Main : Form
+    public partial class PDF_Rotate_Main : Form
     {
         private static readonly string InstallDir = AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string AppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Rotate");
@@ -26,10 +26,11 @@ namespace PDF_Rotate
         private static readonly string ResourceDir = Path.Combine(AppDataDir, @"Resources");
         private static readonly string HtmlDir = Path.Combine(ResourceDir, @"html");
         private string TempFile { get; set; }
-
         private string BrowserFile { get; set; }
 
-        public Main(string filePath = null)
+        private FileInfo OG_File_Info { get; set; }
+
+        public PDF_Rotate_Main(string filePath = null)
         {
             InitializeComponent();
 
@@ -38,35 +39,41 @@ namespace PDF_Rotate
             if (!Directory.Exists(ResourceDir)) Directory.CreateDirectory(ResourceDir);
             if (!Directory.Exists(HtmlDir)) Directory.CreateDirectory(HtmlDir);
 
-            CopyResourcesToAppData(); 
-
+            CopyResourcesToAppData();
+          
             if (filePath != null)
             {
                 if (!File.Exists(filePath)) return;
-
-                webBrowser1.Navigate(filePath); 
+                BrowserFile = filePath;
+                OG_File_Info = new FileInfo(filePath); 
             }
 
         }
 
-        private void CopyResourcesToAppData()
-        {
-            
-            string HtmlInstallDir = Path.Combine(InstallDir, @"html");
-            FileExt.CopyDirectory(HtmlInstallDir, HtmlDir, true);
-        }
-
         private void Main_Load(object sender, EventArgs e)
         {
-            webBrowser1.BringToFront(); 
-            NavigateToLocalResource(@"welcome.htm");
+            webBrowser1.BringToFront();
+
+            if (BrowserFile != null || BrowserFile != string.Empty)
+            {
+                webBrowser1.Navigate(BrowserFile);
+            }
+            else
+            {
+                NavigateToLocalResource(@"welcome.htm");
+            }
+        }
+
+
+        private void CopyResourcesToAppData()
+        {
+            string HtmlInstallDir = Path.Combine(InstallDir, @"html");
+            FileExt.CopyDirectory(HtmlInstallDir, HtmlDir, true);
         }
 
         private void NavigateToLocalResource(string path)
         {
             string rawUrl = Path.Combine(HtmlDir, path);
-            //Uri url = new Uri(rawUrl);
-            //webBrowser1.Url = url;
             webBrowser1.Navigate(rawUrl);
         }
 
@@ -77,9 +84,9 @@ namespace PDF_Rotate
             var result = diag.ShowDialog(); 
 
             if (result == DialogResult.OK)
-            {                
-                Uri url = new Uri(diag.FileName);
-                webBrowser1.Url = url;
+            {
+                OG_File_Info = new FileInfo(diag.FileName);
+                webBrowser1.Navigate(diag.FileName);
             }
 
         }
@@ -99,25 +106,17 @@ namespace PDF_Rotate
         }
 
 
-        //private void PreviewFile(string path)
-        //{
-        //    FileInfo file = new FileInfo(path);
-
-        //    if (file.Extension == ".htm" || file.Extension == ".pdf")
-        //    {
-        //        string tempFile = Path.Combine(Path.GetTempPath(), file.Name);
-        //        File.Copy(file.FullName, tempFile);
-        //        Application.DoEvents();
-        //        Uri url = new Uri(tempFile);
-        //        webBrowser1.Url = url; 
-        //    }
-        //}
-
         private void WebBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
 
-            string path = HttpUtility.UrlDecode(e.Url.AbsolutePath);
-            var droppedFile = new FileInfo(path);
+            BrowserFile = HttpUtility.UrlDecode(e.Url.AbsolutePath);
+
+            if (!BrowserFile.Contains("rotate"))
+            {
+                if (OG_File_Info == null) OG_File_Info = new FileInfo(BrowserFile);
+            }
+
+            var droppedFile = new FileInfo(BrowserFile);
 
             if (File.Exists(droppedFile.FullName))
             {
@@ -153,30 +152,27 @@ namespace PDF_Rotate
 
                     doc.Save(newName);
 
-                    Application.DoEvents(); //give time to save. 
+                    Application.DoEvents(); 
 
                     webBrowser1.Navigate(newName); 
 
-                    //var url = new Uri(newName);
-
-                    //webBrowser1.Url = url;
                 }
             }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            webBrowser1.ShowSaveAsDialog();
+            
+            
+            string filePath = HttpUtility.UrlDecode(webBrowser1.Url.AbsolutePath);
 
+            string newPath = Path.Combine(OG_File_Info.DirectoryName, "Rotated_" + OG_File_Info.Name);
+
+            File.Copy(filePath, newPath, true); 
+            
             Application.DoEvents();             
-
-            NavigateToLocalResource(@"Welcome.htm");
-          
-            var resp = MessageBox.Show("Do you want to close PDF Rotate?", "*.*", MessageBoxButtons.YesNo);
             
             this.DialogResult = DialogResult.OK;
-
-            if (resp == DialogResult.Yes) this.Close();
 
         }
 

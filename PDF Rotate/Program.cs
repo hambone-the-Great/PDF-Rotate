@@ -16,7 +16,7 @@ namespace PDF_Rotate
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new PDF_Rotate_Main());
         }
     }
 }

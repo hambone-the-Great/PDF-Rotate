@@ -1,6 +1,6 @@
 ﻿namespace PDF_Rotate
 {
-    partial class Main
+    partial class PDF_Rotate_Main
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PDF_Rotate_Main));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRotateLeft = new System.Windows.Forms.Button();
