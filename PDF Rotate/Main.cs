@@ -24,8 +24,10 @@ namespace PDF_Rotate
         private static readonly string AppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Rotate");
         private static readonly string TempDir = Path.Combine(AppDataDir, @"Temp");
         private static readonly string ResourceDir = Path.Combine(AppDataDir, @"Resources");
-        private static readonly string HtmlDir = Path.Combine(ResourceDir, @"html"); 
+        private static readonly string HtmlDir = Path.Combine(ResourceDir, @"html");
         private string TempFile { get; set; }
+
+        private string BrowserFile { get; set; }
 
         public Main(string filePath = null)
         {
@@ -40,7 +42,9 @@ namespace PDF_Rotate
 
             if (filePath != null)
             {
+                if (!File.Exists(filePath)) return;
 
+                webBrowser1.Navigate(filePath); 
             }
 
         }
@@ -162,13 +166,17 @@ namespace PDF_Rotate
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            //webBrowser1.ShowSaveAsDialog();
+            webBrowser1.ShowSaveAsDialog();
 
-
-
-            MessageBox.Show("File Saved Successfully.");
+            Application.DoEvents();             
 
             NavigateToLocalResource(@"Welcome.htm");
+          
+            var resp = MessageBox.Show("Do you want to close PDF Rotate?", "*.*", MessageBoxButtons.YesNo);
+            
+            this.DialogResult = DialogResult.OK;
+
+            if (resp == DialogResult.Yes) this.Close();
 
         }
 
