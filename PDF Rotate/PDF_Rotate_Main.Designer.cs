@@ -34,9 +34,12 @@
             this.btnRotateLeft = new System.Windows.Forms.Button();
             this.btnRotateRight = new System.Windows.Forms.Button();
             this.btnOpenFile = new System.Windows.Forms.Button();
+            this.webview = new Microsoft.Web.WebView2.WinForms.WebView2();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webview)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -53,6 +56,10 @@
             this.splitContainer1.Panel1.Controls.Add(this.btnRotateLeft);
             this.splitContainer1.Panel1.Controls.Add(this.btnRotateRight);
             this.splitContainer1.Panel1.Controls.Add(this.btnOpenFile);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.webview);
             this.splitContainer1.Size = new System.Drawing.Size(792, 757);
             this.splitContainer1.SplitterDistance = 193;
             this.splitContainer1.SplitterWidth = 5;
@@ -110,6 +117,19 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.Button1_Click);
             // 
+            // webview
+            // 
+            this.webview.CreationProperties = null;
+            this.webview.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webview.Location = new System.Drawing.Point(0, 0);
+            this.webview.Name = "webview";
+            this.webview.Size = new System.Drawing.Size(594, 757);
+            this.webview.TabIndex = 0;
+            this.webview.ZoomFactor = 1D;
+            this.webview.NavigationStarting += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs>(this.webview_NavigationStarting);
+            this.webview.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webview_NavigationCompleted);
+            // 
             // PDF_Rotate_Main
             // 
             this.AllowDrop = true;
@@ -125,8 +145,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.webview)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -138,6 +160,7 @@
         private System.Windows.Forms.Button btnRotateRight;
         private System.Windows.Forms.Button btnRotateLeft;
         private System.Windows.Forms.Button btnSave;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webview;
     }
 }
 

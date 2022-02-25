@@ -50,13 +50,20 @@ namespace PDF_Rotate
 
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-            webBrowser1.BringToFront();
 
-            if (BrowserFile != null || BrowserFile != string.Empty)
-            {
-                webBrowser1.Navigate(BrowserFile);
+        private async Task InitializeAsync()
+        {
+            await webview.EnsureCoreWebView2Async(null);            
+        }
+
+        private async void Main_Load(object sender, EventArgs e)
+        {
+
+            await InitializeAsync();
+
+            if (BrowserFile != null)
+            {                
+                if (BrowserFile != string.Empty) webview.Navigate(BrowserFile);
             }
             else
             {
@@ -74,7 +81,7 @@ namespace PDF_Rotate
         private void NavigateToLocalResource(string path)
         {
             string rawUrl = Path.Combine(HtmlDir, path);
-            webBrowser1.Navigate(rawUrl);
+            webview.Navigate(rawUrl);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -86,7 +93,7 @@ namespace PDF_Rotate
             if (result == DialogResult.OK)
             {
                 OG_File_Info = new FileInfo(diag.FileName);
-                webBrowser1.Navigate(diag.FileName);
+                webview.Navigate(diag.FileName);
             }
 
         }
@@ -133,38 +140,39 @@ namespace PDF_Rotate
 
         private void RotatePDF(int degrees)
         {
-                      
-            if (TempFile != string.Empty)
+
+            if (TempFile == null) return;
+            if (TempFile == string.Empty) return; 
+                
+            var info = new FileInfo(HttpUtility.UrlDecode(TempFile));
+
+            if (info.Extension == ".pdf")
             {
-                var info = new FileInfo(HttpUtility.UrlDecode(TempFile));
 
-                if (info.Extension == ".pdf")
+                var doc = PdfReader.Open(TempFile);
+
+                foreach (PdfPage page in doc.Pages)
                 {
-
-                    var doc = PdfReader.Open(TempFile);
-
-                    foreach (PdfPage page in doc.Pages)
-                    {
-                        page.Rotate = (page.Rotate + degrees) % 360;
-                    }
-
-                    var newName = Path.Combine(TempDir, "rotated_" + info.Name);
-
-                    doc.Save(newName);
-
-                    Application.DoEvents(); 
-
-                    webBrowser1.Navigate(newName); 
-
+                    page.Rotate = (page.Rotate + degrees) % 360;
                 }
+
+                var newName = Path.Combine(TempDir, "rotated_" + info.Name);
+
+                doc.Save(newName);
+
+                Application.DoEvents();
+
+                webview.Navigate(newName); 
+
             }
+            
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
             
             
-            string filePath = HttpUtility.UrlDecode(webBrowser1.Url.AbsolutePath);
+            string filePath = HttpUtility.UrlDecode(webview.Source.AbsolutePath);
 
             string newPath = Path.Combine(OG_File_Info.DirectoryName, "Rotated_" + OG_File_Info.Name);
 
@@ -173,6 +181,8 @@ namespace PDF_Rotate
             Application.DoEvents();             
             
             this.DialogResult = DialogResult.OK;
+
+            this.Close();
 
         }
 
@@ -197,5 +207,47 @@ namespace PDF_Rotate
         {
             CleanTempDir();
         }
+
+        private void webview_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+            
+        }
+
+        private void webview_NavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+        {
+            BrowserFile = HttpUtility.UrlDecode(e.Uri.ToString());
+
+            if (!BrowserFile.Contains("rotate"))
+            {
+                if (OG_File_Info == null) OG_File_Info = new FileInfo(BrowserFile);
+            }
+
+            BrowserFile = BrowserFile.Replace(@"file:///", @"");
+
+            FileInfo droppedFile = new FileInfo(BrowserFile);
+
+            if (File.Exists(droppedFile.FullName))
+            {
+                if (droppedFile.Extension == ".pdf")
+                {
+                    TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(4) + droppedFile.Extension);
+                    File.Copy(droppedFile.FullName, TempFile);                    
+                }
+            }
+        }
     }
+
+    public static class WebViewHelper
+    {
+
+        public static void Navigate(this Microsoft.Web.WebView2.WinForms.WebView2 webview, string path)
+        {
+            if (webview != null && webview.CoreWebView2 != null)
+            {
+                webview.CoreWebView2.Navigate(path);
+            }
+        }
+
+    }
+
 }
