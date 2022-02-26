@@ -237,7 +237,7 @@ namespace PDF_Rotate
         }
     }
 
-    public static class WebViewHelper
+    static class WebViewHelper
     {
 
         public static void Navigate(this Microsoft.Web.WebView2.WinForms.WebView2 webview, string path)
