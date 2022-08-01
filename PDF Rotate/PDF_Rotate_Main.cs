@@ -182,7 +182,7 @@ namespace PDF_Rotate
             
             this.DialogResult = DialogResult.OK;
 
-            this.Close();
+            //this.Close();
 
         }
 
@@ -233,6 +233,21 @@ namespace PDF_Rotate
                     TempFile = Path.Combine(TempDir.ToString(), RandomGear.GenerateRandomString(4) + droppedFile.Extension);
                     File.Copy(droppedFile.FullName, TempFile);                    
                 }
+            }
+        }
+
+        private void webview_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            
+            webview.Navigate(fileList[0].ToString()); 
+        }
+
+        private void webview_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;                 
             }
         }
     }

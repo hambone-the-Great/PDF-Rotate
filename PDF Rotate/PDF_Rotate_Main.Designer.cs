@@ -119,6 +119,7 @@
             // 
             // webview
             // 
+            this.webview.AllowExternalDrop = true;
             this.webview.CreationProperties = null;
             this.webview.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webview.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,6 +130,8 @@
             this.webview.ZoomFactor = 1D;
             this.webview.NavigationStarting += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs>(this.webview_NavigationStarting);
             this.webview.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.webview_NavigationCompleted);
+            this.webview.DragDrop += new System.Windows.Forms.DragEventHandler(this.webview_DragDrop);
+            this.webview.DragEnter += new System.Windows.Forms.DragEventHandler(this.webview_DragEnter);
             // 
             // PDF_Rotate_Main
             // 
