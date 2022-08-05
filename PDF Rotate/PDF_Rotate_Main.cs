@@ -178,12 +178,12 @@ namespace PDF_Rotate
 
             File.Copy(filePath, newPath, true); 
             
+            
+            
             Application.DoEvents();             
             
             this.DialogResult = DialogResult.OK;
-
-            //this.Close();
-
+            
         }
 
         private void CleanTempDir()
