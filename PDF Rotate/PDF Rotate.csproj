@@ -30,7 +30,7 @@
     <ProductName>PDF Rotate</ProductName>
     <PublisherName>Schuff Software Company</PublisherName>
     <SuiteName>PDF Master Suite</SuiteName>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -149,27 +149,31 @@
     <Content Include="html\css\main.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="html\error.htm" />
-    <Content Include="html\goodbye.htm" />
+    <Content Include="html\error.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="html\goodbye.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="html\images\pdf-rotate-64.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="pdf-rotate-icon.ico" />
-    <None Include="html\images\folder-100.png">
+    <Content Include="html\images\folder-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="html\images\save-100.png">
+    </Content>
+    <Content Include="html\images\save-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="html\images\left.png">
+    </Content>
+    <Content Include="html\images\left.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="html\images\right.png">
+    </Content>
+    <Content Include="html\images\right.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="html\images\folder-64.png">
+    </Content>
+    <Content Include="html\images\folder-64.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="html\images\folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

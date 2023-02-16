@@ -20,7 +20,7 @@ namespace PDF_Rotate
 {
     public partial class PDF_Rotate_Main : Form
     {
-        private static readonly string InstallDir = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string InstallDir = AppContext.BaseDirectory; //AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string AppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Rotate");
         private static readonly string TempDir = Path.Combine(AppDataDir, @"Temp");
         private static readonly string ResourceDir = Path.Combine(AppDataDir, @"Resources");
@@ -34,18 +34,27 @@ namespace PDF_Rotate
         {
             InitializeComponent();
 
-            if (!Directory.Exists(AppDataDir)) Directory.CreateDirectory(AppDataDir);
-            if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
-            if (!Directory.Exists(ResourceDir)) Directory.CreateDirectory(ResourceDir);
-            if (!Directory.Exists(HtmlDir)) Directory.CreateDirectory(HtmlDir);
-
-            CopyResourcesToAppData();
-          
-            if (filePath != null)
+            try
             {
-                if (!File.Exists(filePath)) return;
-                BrowserFile = filePath;
-                OG_File_Info = new FileInfo(filePath); 
+
+
+                if (!Directory.Exists(AppDataDir)) Directory.CreateDirectory(AppDataDir);
+                if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
+                if (!Directory.Exists(ResourceDir)) Directory.CreateDirectory(ResourceDir);
+                if (!Directory.Exists(HtmlDir)) Directory.CreateDirectory(HtmlDir);
+
+                CopyResourcesToAppData();
+
+                if (filePath != null)
+                {
+                    if (!File.Exists(filePath)) return;
+                    BrowserFile = filePath;
+                    OG_File_Info = new FileInfo(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
             }
 
         }
@@ -74,8 +83,15 @@ namespace PDF_Rotate
 
         private void CopyResourcesToAppData()
         {
-            string HtmlInstallDir = Path.Combine(InstallDir, @"html");
-            FileExt.CopyDirectory(HtmlInstallDir, HtmlDir, true);
+            try
+            {
+                string HtmlInstallDir = Path.Combine(InstallDir, @"html");
+                FileExt.CopyDirectory(HtmlInstallDir, HtmlDir, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Some files could not be copied. " + ex.Message); 
+            }
         }
 
         private void NavigateToLocalResource(string path)
