@@ -98,6 +98,14 @@ namespace PDF_Rotate
 
         }
 
+        private void ResetForm()
+        {
+            NavigateToLocalResource(@"welcome.htm");
+            TempFile = string.Empty;
+            BrowserFile = string.Empty; 
+        }
+
+
         private void BtnRotateRight_Click(object sender, EventArgs e)
         {
 
@@ -170,19 +178,40 @@ namespace PDF_Rotate
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            
-            
-            string filePath = HttpUtility.UrlDecode(webview.Source.AbsolutePath);
+            try
+            {
+                string filePath = HttpUtility.UrlDecode(webview.Source.AbsolutePath);
 
-            string newPath = Path.Combine(OG_File_Info.DirectoryName, "Rotated_" + OG_File_Info.Name);
+                string newPath = Path.Combine(OG_File_Info.DirectoryName, "Rotated_" + OG_File_Info.Name);
 
-            File.Copy(filePath, newPath, true); 
-            
-            
-            
-            Application.DoEvents();             
-            
-            this.DialogResult = DialogResult.OK;
+                FileInfo info = new FileInfo(newPath); 
+
+                SaveFileDialog diag = new SaveFileDialog();
+                diag.Title = "PDF Files | *.pdf";
+                diag.Title = "Save Rotated File";
+                diag.FileName = info.Name; 
+                var result = diag.ShowDialog();
+
+                if (result == DialogResult.Cancel) return;
+
+                if (string.IsNullOrEmpty(diag.FileName)) return;
+
+                File.Copy(filePath, diag.FileName, true); 
+                
+                //File.Copy(filePath, newPath, true);
+
+                Application.DoEvents();
+
+                MessageBox.Show("File saved successfully."); 
+
+                this.DialogResult = DialogResult.OK;
+
+                ResetForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); 
+            }
             
         }
 
