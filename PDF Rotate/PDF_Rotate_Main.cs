@@ -227,6 +227,7 @@ namespace PDF_Rotate
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message); 
+                
             }
             
         }
