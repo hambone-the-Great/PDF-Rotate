@@ -263,12 +263,13 @@ namespace PDF_Rotate
         {
             BrowserFile = HttpUtility.UrlDecode(e.Uri.ToString());
 
+
+            BrowserFile = BrowserFile.Replace(@"file:///", @"");
+
             if (!BrowserFile.Contains("rotate"))
             {
                 if (OG_File_Info == null) OG_File_Info = new FileInfo(BrowserFile);
             }
-
-            BrowserFile = BrowserFile.Replace(@"file:///", @"");
 
             FileInfo droppedFile = new FileInfo(BrowserFile);
 
