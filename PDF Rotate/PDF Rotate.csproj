@@ -158,6 +158,9 @@
     <Content Include="html\images\pdf-rotate-64.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="html\rotate-welcome.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="pdf-rotate-icon.ico" />
     <Content Include="html\images\folder-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -199,9 +202,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="html\images\ss-logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="html\welcome.htm">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

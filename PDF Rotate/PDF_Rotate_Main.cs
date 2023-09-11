@@ -20,7 +20,7 @@ namespace PDF_Rotate
 {
     public partial class PDF_Rotate_Main : Form
     {
-        private static readonly string InstallDir = AppContext.BaseDirectory; //AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string InstallDir = AppDomain.CurrentDomain.BaseDirectory; //Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //AppDomain.CurrentDomain.BaseDirectory;
         private static readonly string AppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"PDF_Rotate");
         private static readonly string TempDir = Path.Combine(AppDataDir, @"Temp");
         private static readonly string ResourceDir = Path.Combine(AppDataDir, @"Resources");
@@ -36,8 +36,6 @@ namespace PDF_Rotate
 
             try
             {
-
-
                 if (!Directory.Exists(AppDataDir)) Directory.CreateDirectory(AppDataDir);
                 if (!Directory.Exists(TempDir)) Directory.CreateDirectory(TempDir);
                 if (!Directory.Exists(ResourceDir)) Directory.CreateDirectory(ResourceDir);
@@ -54,7 +52,7 @@ namespace PDF_Rotate
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message); 
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -76,7 +74,7 @@ namespace PDF_Rotate
             }
             else
             {
-                NavigateToLocalResource(@"welcome.htm");
+                NavigateToLocalResource(@"rotate-welcome.htm");
             }
         }
 
@@ -116,7 +114,7 @@ namespace PDF_Rotate
 
         private void ResetForm()
         {
-            NavigateToLocalResource(@"welcome.htm");
+            NavigateToLocalResource(@"rotate-welcome.htm");
             TempFile = string.Empty;
             BrowserFile = string.Empty; 
         }
